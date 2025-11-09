@@ -7,10 +7,11 @@ require __DIR__.'/order-functions.php';
 $order_number = '';
 
 // Handle PayU response
+// Handle PayU response
 if (isset($_POST['status']) && isset($_POST['txnid'])) {
     $salt = env('PAYU_SALT');
     $status = $_POST['status'];
-    $txnid = $_POST['txnid'];
+    $txnid = $_POST['txnid']; // This is our Order Number
     $hash = $_POST['hash'];
     
     // Verify hash
@@ -18,39 +19,35 @@ if (isset($_POST['status']) && isset($_POST['txnid'])) {
     $generated_hash = strtolower(hash('sha512', $hash_string));
     
     if ($generated_hash == $hash && $status == 'success') {
-        // Payment successful - save order
-        if (isset($_SESSION['cart']) && isset($_SESSION['address'])) {
-            $cart = $_SESSION['cart'];
-            $address = $_SESSION['address'];
-            
-            $total = 0;
-            foreach ($cart as $item) {
-                $total += $item['price'] * $item['qty'];
-            }
-            
-            $order_data = [
-                'full_name' => $address['full_name'],
-                'mobile' => $address['mobile'],
-                'email' => $_POST['email'],
-                'address_line1' => $address['address_line1'] ?? '',
-                'address_line2' => $address['address_line2'] ?? '',
-                'city' => $address['city'] ?? '',
-                'state' => $address['state'] ?? '',
-                'pincode' => $address['pincode'],
-                'total_amount' => $total,
-                'payment_method' => 'PayU',
-                'payment_status' => 'completed',
-                'transaction_id' => $txnid
-            ];
-            
-            $order_number = save_order_to_db($order_data, $cart, 'success');
-            $_SESSION['last_order_number'] = $order_number;
-            
-            // Clear cart
-            unset($_SESSION['cart']);
-            unset($_SESSION['address']);
-        }
+        // Payment successful - UPDATE the order
+        // We do not need the session!
+        
+        update_order_status_after_payment(
+            $txnid,         // order_number (which is the txnid)
+            'success',     // status
+            'completed',   // payment_status
+            $txnid,         // transaction_id
+            ''             // failure_reason
+        );
+        
+        $order_number = $txnid;
+        $_SESSION['last_order_number'] = $order_number;
+        
+        // Clear cart
+        unset($_SESSION['cart']);
+        unset($_SESSION['address']);
+        
     } else {
+        // Hash failed or status was not success
+        // We must UPDATE the order to 'failed'
+         update_order_status_after_payment(
+            $txnid,         // order_number (which is the txnid)
+            'failed',      // status
+            'failed',      // payment_status
+            $txnid,         // transaction_id
+            'Invalid hash or payment not successful' // failure_reason
+        );
+        
         header('Location: ' . url('failure.php'));
         exit;
     }

@@ -8,38 +8,24 @@ $order_number = '';
 $failure_reason = '';
 
 // Handle PayU failure response
+// Handle PayU failure response
 if (isset($_POST['txnid'])) {
-    $txnid = $_POST['txnid'];
+    $txnid = $_POST['txnid']; // This is our Order Number
     $failure_reason = $_POST['error_Message'] ?? $_POST['error'] ?? 'Payment failed';
     
-    // Save failed order
-    if (isset($_SESSION['cart']) && isset($_SESSION['address'])) {
-        $cart = $_SESSION['cart'];
-        $address = $_SESSION['address'];
-        
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['qty'];
-        }
-        
-        $order_data = [
-            'full_name' => $address['full_name'],
-            'mobile' => $address['mobile'],
-            'email' => $_POST['email'] ?? '',
-            'address_line1' => $address['address_line1'] ?? '',
-            'address_line2' => $address['address_line2'] ?? '',
-            'city' => $address['city'] ?? '',
-            'state' => $address['state'] ?? '',
-            'pincode' => $address['pincode'],
-            'total_amount' => $total,
-            'payment_method' => 'PayU',
-            'payment_status' => 'failed',
-            'transaction_id' => $txnid
-        ];
-        
-        $order_number = save_order_to_db($order_data, $cart, 'failed', $failure_reason);
-        $_SESSION['last_failed_order'] = $order_number;
-    }
+    // Payment failed - UPDATE the order
+    // We do not need the session!
+    
+    update_order_status_after_payment(
+        $txnid,         // order_number (which is the txnid)
+        'failed',      // status
+        'failed',      // payment_status
+        $txnid,         // transaction_id
+        $failure_reason // failure_reason
+    );
+    
+    $order_number = $txnid;
+    $_SESSION['last_failed_order'] = $order_number;
 }
 ?>
 <style>

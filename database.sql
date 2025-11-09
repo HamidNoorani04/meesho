@@ -1,8 +1,5 @@
--- Database Schema for Meesho Shop
--- Run this SQL in your phpMyAdmin or MySQL client
-
-CREATE DATABASE IF NOT EXISTS meesho_shop;
-USE meesho_shop;
+-- This script assumes you have already created and selected
+-- your database (e.g., 'pfn_1234567_meesho_shop') in phpMyAdmin.
 
 -- Products Table
 CREATE TABLE IF NOT EXISTS products (

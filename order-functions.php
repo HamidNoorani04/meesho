@@ -115,4 +115,40 @@ function update_payment_status($order_number, $status, $transaction_id = '') {
     
     return $stmt->execute([$status, $transaction_id, $order_number]);
 }
+
+// ADD THIS NEW FUNCTION TO THE END OF THE FILE
+function update_order_status_after_payment($order_number, $status, $payment_status, $transaction_id, $failure_reason = '') {
+    $db = get_db_connection();
+    
+    try {
+        $stmt = $db->prepare("
+            UPDATE orders 
+            SET 
+                status = ?, 
+                payment_status = ?, 
+                order_status = ?, 
+                transaction_id = ?, 
+                failure_reason = ?
+            WHERE 
+                order_number = ?
+        ");
+        
+        $order_status = ($status === 'success') ? 'processing' : 'failed';
+        
+        $stmt->execute([
+            $status,
+            $payment_status,
+            $order_status,
+            $transaction_id,
+            $failure_reason,
+            $order_number
+        ]);
+        
+        return true;
+        
+    } catch (Exception $e) {
+        error_log("Order update failed: " . $e->getMessage());
+        return false;
+    }
+}
 ?>

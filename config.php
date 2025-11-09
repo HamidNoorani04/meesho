@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_samesite', 'None');
+ini_set('session.cookie_secure', 'true');
 // Suppress all errors for production
 error_reporting(0);
 ini_set('display_errors', 0);

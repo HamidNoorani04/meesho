@@ -1,7 +1,6 @@
 <?php
 $pageTitle = 'Admin - Manage Products'; 
-require __DIR__.'/partials/head.php'; 
-require __DIR__.'/partials/header.php'; 
+require __DIR__.'/partials/head.php';  
 require __DIR__.'/util.php';
 
 // Check admin authentication
@@ -595,5 +594,3 @@ if(isset($_GET['edit'])){
   </div>
 </div>
 <?php endif; endif; ?>
-
-<?php require __DIR__.'/partials/footer.php'; ?>

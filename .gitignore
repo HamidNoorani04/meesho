@@ -1,0 +1,6 @@
+.env
+data/products.json
+*.log
+server.log
+.DS_Store
+Thumbs.db

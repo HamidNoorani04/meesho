@@ -1,0 +1,77 @@
+PRODUCTION SETUP STEPS:
+=======================
+
+1. UPLOAD FILES
+   - Upload all files to your web server
+   - Keep .htaccess, .env, .gitignore
+
+2. CREATE DATABASE
+   - Go to phpMyAdmin in cPanel
+   - Click "New" to create database
+   - Name it: meesho_shop
+   - Go to SQL tab
+   - Copy & paste contents from database.sql
+   - Click "Go" to run
+
+3. CONFIGURE .env FILE
+   Edit .env file with your credentials:
+   
+   DB_HOST=localhost
+   DB_NAME=meesho_shop
+   DB_USER=your_database_username
+   DB_PASS=your_database_password
+   
+   PAYU_MERCHANT_KEY=your_actual_merchant_key
+   PAYU_SALT=your_actual_salt_key
+   PAYU_BASE_URL=https://secure.payu.in
+   
+   ADMIN_USERNAME=your_admin_username
+   ADMIN_PASSWORD=your_strong_password_here
+
+4. SET FILE PERMISSIONS
+   chmod 644 .env
+   chmod 644 .htaccess
+   chmod 666 data/products.json
+
+5. ENABLE HTTPS
+   - Get SSL certificate (free from Let's Encrypt)
+   - .htaccess will auto-redirect HTTP to HTTPS
+
+6. ADMIN ACCESS
+   - Go to: yourdomain.com/admin-login.php
+   - Login with credentials from .env
+   - Manage products and view orders
+
+7. NO WARNINGS/ERRORS
+   ✓ All PHP errors hidden (.htaccess + config.php)
+   ✓ Database errors suppressed
+   ✓ Production-ready error handling
+   ✓ Site will never show errors to visitors
+
+8. SECURITY CHECKLIST
+   ✓ .env file protected
+   ✓ HTTPS enabled
+   ✓ Strong admin password
+   ✓ Database secured
+   ✓ CSRF protection
+   ✓ No error display
+
+9. TEST BEFORE GOING LIVE
+   - Test admin login
+   - Test product add/edit/delete
+   - Test checkout & payment
+   - Check order saving in database
+   - Test on mobile devices
+
+10. VIEW ORDERS
+    - Login to admin panel
+    - Click "View Orders" button
+    - See all customer orders with details
+
+IMPORTANT NOTES:
+- Never share your .env file
+- Change default admin password immediately
+- Backup database regularly
+- Test payment gateway in test mode first
+- Orders are saved in database automatically
+- No warnings will ever show on site

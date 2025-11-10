@@ -605,7 +605,7 @@ if($OFFER_ENABLED && $totalItems >= 3){
         <div class="offer-icon">🔥</div>
         <div class="offer-text">
           <strong>Special Offer: Buy 3 Get 1 FREE!</strong>
-          <small>Add <?php echo 3 - $totalItems; ?> more item(s) to get the cheapest one free</small>
+          <small>Add <?php echo 3 - $totalItems; ?> more item(s) to get the one free</small>
         </div>
       </div>
     <?php endif; ?>

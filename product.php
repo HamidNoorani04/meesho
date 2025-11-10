@@ -80,7 +80,7 @@ $pageTitle = htmlspecialchars($product['title']).' - Meesho Shop';
           <div>♡</div>
           <span>Wishlist</span>
         </div>
-        <div class="icon-box">
+        <div class="icon-box" id="share-button" style="cursor: pointer;">
           <div>↗</div>
           <span>Share</span>
         </div>
@@ -337,4 +337,40 @@ $pageTitle = htmlspecialchars($product['title']).' - Meesho Shop';
     </div>
   </form>
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const shareButton = document.getElementById('share-button');
+  
+  if (shareButton) {
+    shareButton.addEventListener('click', async () => {
+      
+      // These are the details to share
+      const shareData = {
+        title: '<?php echo e($product['title']); ?>',
+        text: 'Check out this product on Meesho Shop!',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        // Use the Web Share API (on mobile)
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          console.log('Error sharing:', err);
+        }
+      } else {
+        // Fallback for desktop (copy to clipboard)
+        try {
+          await navigator.clipboard.writeText(shareData.url);
+          alert('Link copied to clipboard!');
+        } catch (err) {
+          console.error('Failed to copy link:', err);
+          alert('Could not copy link.');
+        }
+      }
+    });
+  }
+});
+</script>
+
 <?php require __DIR__.'/partials/footer.php'; ?>

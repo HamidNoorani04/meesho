@@ -73,7 +73,6 @@
         </svg></div><span>Account</span>
     </a>
   </nav>
-  <p class="copy">© <?php echo date('Y'); ?> Meesho Shop - Lowest Prices</p>
 </footer>
 </body>
 </html>

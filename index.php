@@ -47,9 +47,7 @@ if($q){
 
   <!-- USP Section -->
   <section class="usp">
-    <div class="usp-item"><img src="https://images.meesho.com/images/value_props/return_new.png" alt="return"> <span>Easy returns & refunds</span></div>
-    <div class="usp-item"><img src="https://images.meesho.com/images/value_props/cod_new.png" alt="cod"> <span>Cash on delivery</span></div>
-    <div class="usp-item"><img src="https://images.meesho.com/images/value_props/lowest_price_new.png" alt="lowest-price"> <span>Lowest price</span></div>
+  <img src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" alt="" class="w-100 mb-2">
   </section>
 
   <!-- Daily Deals -->

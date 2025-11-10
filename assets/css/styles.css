@@ -48,9 +48,17 @@ body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:
 .pill-marquee-content{display:inline-block;animation:marquee-scroll 15s linear infinite}
 
 /* USPs */
-.usp{display:flex;gap:20px;justify-content:space-around;align-items:center;border:1px solid var(--line);border-radius:12px;margin:14px 0;padding:16px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
-.usp-item{display:flex;gap:8px;align-items:center;color:#0f172a;font-weight:600;font-size:14px}
-
+.usp{
+  margin: 14px 0;      /* Keeps the original spacing */
+  border-radius: 12px; /* Keeps the rounded corners */
+  overflow: hidden;    /* Clips the image to the rounded corners */
+  line-height: 0;      /* Fixes any extra space below the image */
+}
+.usp img {
+  width: 100%;         /* Makes the image responsive */
+  height: auto;        /* Maintains the correct aspect ratio */
+  display: block;
+}
 /* Daily Deals Section */
 .deals{margin:20px 0}
 .section-title{display:flex;align-items:center;gap:8px;color:#0f172a;font-size:20px;font-weight:700;margin:12px 0}

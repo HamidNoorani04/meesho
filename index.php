@@ -47,7 +47,7 @@ if($q){
 
   <!-- USP Section -->
   <section class="usp">
-  <img src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" alt="" class="w-100 mb-2">
+  <img src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" alt="">
   </section>
 
   <!-- Daily Deals -->

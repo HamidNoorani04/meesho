@@ -597,7 +597,7 @@ if($OFFER_ENABLED && $totalItems >= 3){
         <div class="offer-icon">🎉</div>
         <div class="offer-text">
           <strong>Congratulations! You got 1 product FREE</strong>
-          <small>Buy 3 items, get the cheapest one free!</small>
+          <small>Buy 3 items, get the one free!</small>
         </div>
       </div>
     <?php elseif($OFFER_ENABLED && $totalItems < 3): ?>
@@ -673,7 +673,9 @@ if($OFFER_ENABLED && $totalItems >= 3){
           </div>
         </div>
       </div>
-      <?php endforeach; ?>
+      <?php endforeach; 
+      $_SESSION['order_total'] = $total;
+      ?>
     </div>
     
     <!-- Price Summary -->

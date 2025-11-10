@@ -9,14 +9,19 @@ if(!isset($_SESSION['address']) || empty($_SESSION['address'])){
 }
 
 // Calculate totals
+// NEW CODE (Fixed)
+// Calculate totals
 $cart = $_SESSION['cart'] ?? [];
+
+// Get the CORRECT total (with offer) from the session
+$total = $_SESSION['order_total'] ?? 0;
+
+// We still need $subtotal just for display
 $subtotal = 0;
 foreach($cart as $item){
   $subtotal += $item['price'] * $item['qty'];
 }
-$shipping = 0;
-$discount = 0;
-$total = $subtotal + $shipping - $discount;
+// We no longer calculate $total, we just use the one from the session.
 
 // PayU credentials from environment variables
 $PAYU_MERCHANT_KEY = env('PAYU_MERCHANT_KEY');
